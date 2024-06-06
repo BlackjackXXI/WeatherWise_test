@@ -23,19 +23,6 @@ body {
     background-repeat: no-repeat;
 }
 
-.background-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Use vw for viewport width */
-    height: 100vh; /* Use vh for viewport height */
-    background-image: url('images/wallpaper.jpg'); /* Ensure the path is correct */
-    background-size: cover;
-    background-position: center; /* Center the background image */
-    z-index: -1;
-
-}
-
 .container {
     max-width: 800px;
     width: 100%;

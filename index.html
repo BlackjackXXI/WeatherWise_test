@@ -1,50 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>WeatherWise - Your Weather Companion</title>
-</head>
-<body>
-    <div class="background-image"></div>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('images/wallpaper.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
 
-    <div class="container">
-        <header class="header">
-            <h1>WeatherWise</h1>
-            <div class="search-bar">
-                <input type="text" id="location-input" placeholder="Enter location" aria-label="Enter location">
-                <button id="search-btn">Search</button>
-            </div>
-        </header>
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.5; /* Adjust opacity for better readability */
+}
 
-        <div class="current-info">
-            <div class="current-date">
-                <div class="time" id="time">12:30 <span id="am-pm">PM</span></div>
-                <div class="date" id="date">Monday, 25 May</div>
-                <div class="others" id="current-weather-items"></div>
-            </div>
-            <div class="place-container">
-                <div class="time-zone" id="time-zone">Africa/Casablanca</div>
-                <div id="country" class="country">MA</div>
-            </div>
-        </div>
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
 
-        <div class="future-forecast">
-            <div class="today" id="current-temp">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
-                <div class="other">
-                    <div class="day">Monday</div>
-                    <div class="temp">Night - 25.6&#176; C</div>
-                    <div class="temp">Day - 35.6&#176; C</div>
-                </div>
-            </div>
-            <div class="weather-forecast" id="weather-forecast"></div>
-        </div>
-    </div>
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.search-bar {
+    display: flex;
+    margin-top: 10px;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.current-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.future-forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-forecast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.weather-forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.w-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.weather-item, .day, .temp {
+    font-size: 1.2em;
+}
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .current-info, .future-forecast {
+        flex: 1;
+    }
+
+    .weather-forecast {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .weather-forecast-item {
+        width: 150px;
+    }
+}
+
+@media (max-width: 599px) {
+    .weather-item, .day, .temp {
+        font-size: 1em;
+    }
+}

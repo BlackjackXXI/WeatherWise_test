@@ -12,6 +12,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background:url('images/clouds-2329680.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    overflow:hidden;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
 }
 
 .background-image {

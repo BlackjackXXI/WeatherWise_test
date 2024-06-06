@@ -11,14 +11,16 @@ const locationInput = document.getElementById('location-input');
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const API_KEY ='49cc8c821cd2aff9af04c9f98c36eb74';
+const API_KEY = '49cc8c821cd2aff9af04c9f98c36eb74';
 
 setInterval(updateTimeAndDate, 1000);
 
 searchBtn.addEventListener('click', () => {
-    const location = locationInput.value;
+    const location = locationInput.value.trim();
     if (location) {
         fetchWeatherDataByLocation(location);
+    } else {
+        alert("Please enter a location.");
     }
 });
 
@@ -37,20 +39,30 @@ function updateTimeAndDate() {
 }
 
 function getWeatherData() {
-    navigator.geolocation.getCurrentPosition((success) => {
-        const { latitude, longitude } = success.coords;
-        fetchWeatherData(latitude, longitude);
-    });
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((success) => {
+            const { latitude, longitude } = success.coords;
+            fetchWeatherData(latitude, longitude);
+        }, (error) => {
+            alert("Unable to retrieve your location. Please enable location services and try again.");
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 }
 
 function fetchWeatherDataByLocation(location) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`)
         .then(res => res.json())
         .then(data => {
-            const { lat, lon } = data.coord;
-            fetchWeatherData(lat, lon);
+            if (data.coord) {
+                const { lat, lon } = data.coord;
+                fetchWeatherData(lat, lon);
+            } else {
+                alert("Location not found. Please enter a valid location.");
+            }
         })
-        .catch(err => alert("Location not found. Please enter a valid location."));
+        .catch(err => alert("Failed to fetch weather data. Please check your connection and try again."));
 }
 
 function fetchWeatherData(lat, lon) {
@@ -63,7 +75,7 @@ function fetchWeatherData(lat, lon) {
 function showWeatherData(data) {
     const { humidity, pressure, sunrise, sunset, wind_speed } = data.current;
     timezone.innerHTML = data.timezone;
-    countryEl.innerHTML = `${data.lat}N ${data.lon}E`;
+    countryEl.innerHTML = `${data.lat.toFixed(2)}N ${data.lon.toFixed(2)}E`;
 
     currentWeatherItemsEl.innerHTML = `
         <div class="weather-item">
